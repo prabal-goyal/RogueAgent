@@ -14,8 +14,21 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Job Application Assistant",
-  description: "Agent that researches a company and drafts a tailored cover letter",
+  title: "RogueAgent — AI Job Application Assistant",
+  description:
+    "Paste a job posting URL, upload your resume, and let RogueAgent research the company, write a tailored cover letter, and prep your interview questions.",
+  openGraph: {
+    title: "RogueAgent — AI Job Application Assistant",
+    description:
+      "AI agent that researches companies, writes tailored cover letters, and generates interview prep questions from any job posting.",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "RogueAgent — AI Job Application Assistant",
+    description:
+      "AI agent that researches companies, writes tailored cover letters, and generates interview prep questions from any job posting.",
+  },
 };
 
 export default function RootLayout({
