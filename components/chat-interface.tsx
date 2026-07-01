@@ -14,9 +14,10 @@ import {
 import { Separator } from "@/components/ui/separator";
 import {
   ChevronRight, Upload, Check, ArrowUp, CircleAlert,
-  Loader2, X, Copy, RefreshCw,
+  Loader2, X, Copy, RefreshCw, LogOut,
 } from "lucide-react";
 import ReactMarkdown, { type Components } from "react-markdown";
+import { createSupabaseBrowserClient } from "@/lib/supabase";
 
 // Hoisted outside the component so the object reference is stable across renders,
 // preventing react-markdown from re-diffing the entire message tree on every keystroke.
@@ -104,6 +105,12 @@ export default function ChatInterface() {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [drawerOpen]);
 
+  async function handleSignOut() {
+    const supabase = createSupabaseBrowserClient();
+    await supabase.auth.signOut();
+    window.location.href = "/login";
+  }
+
   async function handleResumeUpload(file: File) {
     setResumeStatus("uploading");
     const formData = new FormData();
@@ -182,6 +189,17 @@ export default function ChatInterface() {
         </span>
 
         <div className="flex items-center gap-2 ml-auto">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleSignOut}
+            className="text-muted-foreground hover:text-foreground"
+          >
+            <LogOut className="size-3.5" />
+            <span className="hidden sm:inline">Sign out</span>
+          </Button>
+
+          <div className="w-px h-4 bg-border" />
           <input
             ref={fileInputRef}
             type="file"
